@@ -36,6 +36,21 @@ print(aluguel_por_cidade)
 print("\nQuantidade de imóveis por cidade:")
 print(df["cidade"].value_counts())
 
+# Top 10 imóveis mais caros
+print("\n" + "=" * 50)
+print("TOP 10 IMÓVEIS MAIS CAROS")
+print("=" * 50)
+top10 = df[["cidade", "area", "quartos", "aluguel"]].sort_values("aluguel", ascending=False).head(10)
+top10.index = range(1, 11)
+print(top10)
+
+# Percentual de imóveis mobiliados por cidade
+print("\n" + "=" * 50)
+print("PERCENTUAL DE IMÓVEIS MOBILIADOS POR CIDADE")
+print("=" * 50)
+mobiliado = df.groupby("cidade")["mobiliado"].value_counts(normalize=True).mul(100).round(1).unstack()
+print(mobiliado)
+
 # Gráfico de barras: aluguel médio por cidade
 plt.figure(figsize=(10, 5))
 aluguel_por_cidade.plot(kind="bar", color="steelblue", edgecolor="white")
